@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            <div class="dropdown me-auto text-end">
+                <a class="nav-link dropdown-toggle text-dark dropdown-toggle-mine" id="userlogo" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img *ngIf="_UserService.isLogin && profileimage.length > 0"
+                        src="{{_UserService.publicPath}}{{profileimage}}" alt="profile_picture" width="32" height="32"
+                        class="rounded-circle">
+                    <img *ngIf="profileimage.length == 0 || !_UserService.isLogin || userImage.length == 0"
+                        src="assets/images/profilelogo.png" alt="profile_picture" width="32" height="32"
+                        class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small text-end" aria-labelledby="userlogo">
+                    <li><a class="dropdown-item" routerLink="register">تسجيل مستخدم جديد</a></li>
+                    <li *ngIf="_UserService.isLogin"><a class="dropdown-item" [routerLink]="['profile', id]">الصفحة
+                            الشخصية</a></li>
+                    <li *ngIf="_UserService.isLogin">
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li *ngIf="_UserService.isLogin" style="cursor: pointer;"><a class="dropdown-item" (click)="logout()">تسجيل خروج</a></li>
+                    <li *ngIf="!_UserService.isLogin" style="cursor: pointer;"><a class="dropdown-item" routerLink="login">تسجيل دخول</a></li>
+                </ul>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <!-- <li class="nav-item nav-item-mine" *ngIf="!_UserService.isLogin">
+                    <a class="nav-link" routerLinkActive="active-link" routerLink="login">تسجيل الدخول</a>
+                </li> -->
+                <li class="nav-item nav-item-mine">
+                    <a class="nav-link" routerLinkActive="active-link" routerLink="other">بنود اخري</a>
+                </li>
+                <li class="nav-item nav-item-mine">
+                    <a class="nav-link" routerLinkActive="active-link" routerLink="received">الفلوس الواردة</a>
+                </li>
+                <li class="nav-item nav-item-mine">
+                    <a class="nav-link" routerLinkActive="active-link" routerLink="outgoing">الفلوس الصادرة</a>
+                </li>
+                <li class="nav-item nav-item-mine">
+                    <a class="nav-link" aria-current="page" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="">الرئيسية</a>
+                </li>
+                <li class="nav-item nav-item-mine ms-2" routerLink="" style="cursor: pointer;">
+                    <img class="img-responsive" width="40px" src="assets/images/book.png" alt="logo">
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

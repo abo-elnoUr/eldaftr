@@ -1,0 +1,67 @@
+<div class="container-mine">
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+        <h3> تسجيل مستخدم جديد</h3>
+        <form [formGroup]="registerForm" class="text-end">
+            <input class="text-end" type="text" formControlName="fname" placeholder="الأسم الأول" />
+            <div *ngIf="
+          registerFormValidate['fname'].invalid &&
+          (registerFormValidate['fname'].dirty ||
+            registerFormValidate['fname'].touched)
+        ">
+                <small class="text-black text-muted mb-1" *ngIf="registerFormValidate['fname'].errors?.['required']">
+                    هذا الحقل مطلوب
+                </small>
+            </div>
+            <input class="text-end" type="text" formControlName="lname" placeholder="الأسم الثاني" />
+            <div *ngIf="
+            registerFormValidate['lname'].invalid &&
+            (registerFormValidate['lname'].dirty ||
+              registerFormValidate['lname'].touched)
+          ">
+                <small class="text-black text-muted mb-1" *ngIf="registerFormValidate['lname'].errors?.['required']">
+                    هذا الحقل مطلوب
+                </small>
+            </div>
+            <input class="text-end" type="text" formControlName="username" placeholder="إسم المستخدم" />
+            <div *ngIf="
+            registerFormValidate['username'].invalid &&
+            (registerFormValidate['username'].dirty ||
+              registerFormValidate['username'].touched)
+          ">
+                <small class="text-black text-muted mb-1" *ngIf="registerFormValidate['username'].errors?.['required']">
+                    هذا الحقل مطلوب
+                </small>
+            </div>
+            <input class="text-end" type="password" formControlName="password" placeholder="الرقم السري" />
+            <div *ngIf="
+            registerFormValidate['password'].invalid &&
+            (registerFormValidate['password'].dirty ||
+              registerFormValidate['password'].touched)
+          ">
+                <small class="text-black text-muted mb-1" *ngIf="registerFormValidate['password'].errors?.['required']">
+                    هذا الحقل مطلوب
+                </small>
+                <small class="text-black text-muted mb-1" *ngIf="registerFormValidate['password'].errors?.['minlength']">
+                    الرقم السري لا يقل عن 6 حروف
+                </small>
+            </div>
+            <input class="text-end" type="text" formControlName="phone" placeholder="الموبايل" />
+            <div *ngIf="
+            registerFormValidate['phone'].invalid &&
+            (registerFormValidate['phone'].dirty ||
+              registerFormValidate['phone'].touched)
+          ">
+                <small class="text-black text-muted mb-1" *ngIf="registerFormValidate['phone'].errors?.['required']">
+                    هذا الحقل مطلوب
+                </small>
+                <small class="text-black text-muted mb-1" *ngIf="registerFormValidate['password'].errors?.['minlength']">
+                    رقم الموبايل لا يقل عن 11 رقم
+                </small>
+            </div>
+            <button class="btn1" type="submit" [disabled]="!registerForm.valid" (click)="onRegister()">تسجيل</button>
+        </form>
+        <h2>&nbsp;</h2>
+    </div>
+</div>

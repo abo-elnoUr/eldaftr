@@ -1,0 +1,97 @@
+<section class="my-3" style="height: 85vh">
+    <div class="container h-100">
+        <div class="outgoing-title mx-auto text-center">
+            <h3>بنود طارئة</h3>
+        </div>
+        <div class="text-end">
+            <button class="btn btn-outline-primary" style="user-select: none;" (click)="clearData()" data-bs-toggle="modal" data-bs-target="#other"><i class="fa-solid fa-sack-dollar me-2"></i>إضافة فلوس
+                أخري</button>
+        </div>
+        <div class="row mx-auto h-100">
+            <div class="col-md-12">
+                <div *ngIf="others.length == 0" class="h-100 d-flex justify-content-center align-content-center align-items-center">
+                    <h4 class="text-center lead text-muted" style="user-select: none;">هذا المستخدم ليس لديه بيانات
+                    </h4>
+                </div>
+                <div *ngIf="others.length != 0" class="table-responsive-xl my-3">
+                    <table class="table text-end table-hover" style="cursor: pointer;">
+                        <thead>
+                            <tr>
+                                <th scope="col">عمليات</th>
+                                <th scope="col">التاريخ</th>
+                                <th scope="col">السبب</th>
+                                <th scope="col">الفلوس</th>
+                                <th scope="col">م</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let other of others | paginate: { id: 'receivedPagination',
+                            itemsPerPage: 10,
+                            currentPage: p,
+                            totalItems: total }; let i = index">
+                                <td>
+                                    <button class="btn btn-outline-danger me-1" (click)="deleteOther(other._id)"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                    <button class="btn btn-outline-info ms-1" data-bs-toggle="modal" data-bs-target="#other" (click)="getOther(other._id)"><i
+                                            class="fa-solid fa-pen-to-square"></i></button>
+                                </td>
+                                <td>{{other.createdAt | date:'yyyy-MM-dd'}}</td>
+                                <td>{{other.reason}}</td>
+                                <td>{{other.amount}}</td>
+                                <th scope="row">{{ i+1 }}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- pagination -->
+                <div class="mx-auto text-center my-3">
+                    <pagination-controls id="receivedPagination" (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)" [maxSize]="9" [directionLinks]="true" [autoHide]="true" [responsive]="true" previousLabel="Previous" nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- modal add outgoing -->
+<div class="modal fade" id="other" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title ms-auto" id="staticBackdropLabel"><i class="fa-solid fa-money-bill-transfer"></i>
+                </h5>
+            </div>
+            <div class="modal-body text-end">
+                <form [formGroup]="otherForm">
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control text-end" formControlName="amount" placeholder="إكتب كميه الفلوس اللي هتتصرف" />
+                        <span class="input-group-text">الفلوس</span>
+                    </div>
+                    <div *ngIf="
+          otherFormValidate['amount'].invalid &&
+          (otherFormValidate['amount'].dirty ||
+            otherFormValidate['amount'].touched)
+        ">
+                        <small class="text-black" *ngIf="otherFormValidate['amount'].errors?.['required']">
+                            هذا الحقل مطلوب
+                        </small>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control text-end" formControlName="reason" placeholder="اكتب وصف لو محتاجه" />
+                        <span class="input-group-text">السبب</span>
+                    </div>
+                    <div class="mx-auto text-center">
+                        <button *ngIf="editMode == true" (click)="updateOther()" [disabled]="!otherForm.valid" class="btn btn-outline-info mx-4"><i
+                                class="fa-solid fa-pen-to-square me-2"></i>تعديل</button>
+                        <button *ngIf="editMode == false" (click)="addOther()" [disabled]="!otherForm.valid" class="btn btn-outline-primary mx-4"><i class="fa-solid fa-plus me-2"></i>إضافة</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><i
+                        class="fa-solid fa-xmark me-2"></i>اغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>

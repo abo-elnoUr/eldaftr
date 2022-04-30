@@ -1,0 +1,20 @@
+* {
+    font-size: 17px;
+    user-select: none;
+}
+
+.active-link {
+    font-weight: 500;
+    color: #222 !important;
+    transition: all 0.1s ease;
+}
+
+.dropdown-toggle-mine::after {
+    transform: translate(-10%, 80%);
+}
+
+@media only screen and (max-width: 992px) {
+    .nav-item-mine {
+        text-align: end;
+    }
+}

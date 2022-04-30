@@ -1,0 +1,91 @@
+<section class="py-5 my-5">
+    <div class="container">
+        <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+            <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <h3 class="mb-4 text-end">إعدادات الحساب</h3>
+                    <form [formGroup]="profileForm">
+                        <div class="row text-end">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-end">الأسم الأخير</label>
+                                    <input type="text" formControlName="lname" class="form-control text-end">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-end">الأسم الأول</label>
+                                    <input type="text" formControlName="fname" class="form-control text-end">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-end">الهاتف</label>
+                                    <input type="text" formControlName="phone" class="form-control text-end">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-end">إسم المستخدم</label>
+                                    <input type="text" formControlName="username" class="form-control text-end">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-outline-danger me-2" (click)="deleteUser()"><i
+                                    class="fa-solid fa-user-alt-slash me-2"></i>حذف حسابي نهائيا</button>
+                            <button class="btn btn-outline-info me-1" (click)="updateUser()"><i
+                                    class="fa-solid fa-user-pen me-2"></i>تعديل</button>
+                            <button class="btn btn-outline-dark ms-1" data-bs-toggle="modal" data-bs-target="#uploadImg"><i class="fa-solid fa-image me-2"></i>تعديل
+                                صورة
+                                الحساب</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="profile-tab-nav border-right">
+                <div class="p-4">
+                    <div class="img-circle text-center mb-3">
+                        <img *ngIf="_UserService.isLogin && profileimage.length > 0" src="{{_UserService.publicPath}}{{profileimage}}" alt="Image" class="shadow">
+                        <img *ngIf="profileimage.length == 0" src="assets/images/profilelogo.png" alt="Image" class="shadow img-fluid">
+                    </div>
+                    <h4 class="text-center">{{fname}}{{lname}}</h4>
+                </div>
+                <div class="nav flex-column nav-pills">
+                    <a class="nav-link active text-light text-end" style="cursor: pointer;">
+                        الحساب<i class="fa-solid fa-user-lock ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- modal upload img -->
+<div class="modal fade" id="uploadImg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title ms-auto" id="staticBackdropLabel"><i class="fa-solid fa-image"></i>
+                </h5>
+            </div>
+            <div class="modal-body text-end">
+                <form #img="ngForm" (ngSubmit)="uploadImage(img)">
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control text-end" [(ngModel)]="fileImage" name="image" (change)="onChangeImg($event)" />
+                        <span class="input-group-text">الصورة</span>
+                    </div>
+                    <div class="mx-auto text-center">
+                        <button type="submit" class="btn btn-outline-primary mx-4"><i
+                                class="fa-solid fa-plus me-2"></i>إضافة</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><i
+                        class="fa-solid fa-xmark me-2"></i>اغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>

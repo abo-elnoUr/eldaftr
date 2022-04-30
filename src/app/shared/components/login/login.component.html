@@ -1,0 +1,34 @@
+<div class="container-mine">
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+        <h3>الرجاء تسجيل الدخول</h3>
+        <form [formGroup]="loginForm" class="text-end">
+            <input class="text-end" type="email" formControlName="username" placeholder="اسم المستخدم" />
+            <div *ngIf="
+            loginFormValidate['username'].invalid &&
+            (loginFormValidate['username'].dirty ||
+              loginFormValidate['username'].touched)
+          ">
+                <small class="text-black text-muted mb-1" *ngIf="loginFormValidate['username'].errors?.['required']">
+                    هذا الحقل مطلوب
+                </small>
+            </div>
+            <input class="text-end" type="password" formControlName="password" placeholder="الرقم السري" />
+            <div *ngIf="
+            loginFormValidate['password'].invalid &&
+            (loginFormValidate['password'].dirty ||
+              loginFormValidate['password'].touched)
+          ">
+                <small class="text-black text-muted mb-1" *ngIf="loginFormValidate['password'].errors?.['required']">
+                    هذا الحقل مطلوب
+                </small>
+                <small class="text-black text-muted mb-1" *ngIf="loginFormValidate['password'].errors?.['minlength']">
+                    الرقم السري لا يقل عن 6 حروف
+                </small>
+            </div>
+            <button class="btn1" [disabled]="!loginForm.valid" (click)="onLogin()">تسجيل الدخول</button>
+        </form>
+        <h2>&nbsp;</h2>
+    </div>
+</div>
